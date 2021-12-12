@@ -25,10 +25,6 @@ class MängijaT:
         self.vx = 0
         self.vy = 0
         self.img = pygame.image.load("traktor.png")
-    def die(self):
-        self.y = 0
-        self.x = random.uniform(0, 640)
-        self.vy = random.uniform(1, 2)
     def uuenda(self, dt):
         self.x += self.vx * dt
         self.y += self.vy * dt
@@ -41,10 +37,6 @@ class MängijaA:
         self.vx = 0
         self.vy = 0
         self.img = pygame.image.load("auto.png")
-    def die(self):
-        self.y = 0
-        self.x = random.uniform(0, 640)
-        self.vy = random.uniform(1, 2)
     def uuenda(self, dt):
         self.x += self.vx * dt
         self.y += self.vy * dt
@@ -57,10 +49,6 @@ class MängijaK:
         self.vx = 0
         self.vy = 0
         self.img = pygame.image.load("traktor.png")
-    def die(self):
-        self.y = 0
-        self.x = random.uniform(0, 640)
-        self.vy = random.uniform(1, 2)
     def uuenda(self, dt):
         self.x += self.vx * dt
         self.y += self.vy * dt
@@ -175,7 +163,6 @@ while mäng_töötab:
                         screen.blit(VastaneA(), VastaneA().Rect)
                     if level3:
                         level2 = False
-                
                 if e.ui_element == level3: 
                     level3.hide()
                     MängijaK.draw(aken)
@@ -190,8 +177,7 @@ while mäng_töötab:
                     kast.hide()
                     autorids.hide()
     
-
-        manager.process_events(e) #manager töötleb sündmusi
+        manager.process_events(e) 
     trakt.uuenda(dt)
     auto.uuenda(dt)
     speed.uuenda(dt)
@@ -212,8 +198,8 @@ while mäng_töötab:
         VaenlaneK.draw(aken)
     aken.fill([255, 255, 255])
     aken.blit(taust, [taustx, tausty])
-    manager.update(dt) # manager uuendab sündmusi
-    manager.draw_ui(aken) # manager joonistab UI elemendid aknasse
+    manager.update(dt) 
+    manager.draw_ui(aken) 
     pygame.display.flip()
 
 pygame.quit()
