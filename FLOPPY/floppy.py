@@ -19,62 +19,53 @@ vaenK = pygame.image.load("VaenK.jpg")
 taustx= 0
 tausty= 0
 class MängijaT:
-    def __init_(self):
-        self._x = 320
-        self._y = 240
+    def __init__(self):
+        self.x = 320
+        self.y = 240
         self.vx = 0
         self.vy = 0
-        self.img = pygame.image.load(t_auto)
-        self.rect = self.image.get_rect()
-    def update(self, dt):
-        self._x += self.vx * dt
-        self._y += self.vy * dt
-    def draw(self, s):
-        pygame.draw.rect(s,[205,50,0],[self.x - self.size, self.y - self.size, self.size * 2, self.size * 2],0)
-    def kokkupõrge(self, b):
-        if self.x + self.img.get_width() > b.x > self.x - self.img.get_width():
-            if self.y + self.img.get_height() > b.y > self.y - self.img.get_height():
-                tükid.extend([tükk(self.x, self.y) for _ in range(10)])
-                self.die()
+        self.img = pygame.image.load("traktor.png")
     def die(self):
         self.y = 0
         self.x = random.uniform(0, 640)
         self.vy = random.uniform(1, 2)
+    def uuenda(self, dt):
+        self.x += self.vx * dt
+        self.y += self.vy * dt
+    def draw(self, s):
+        s.blit(self.img, [self.x - self.img.get_width() / 2, self.y - self.img.get_height() / 2])
 class MängijaA:
-    def __init_(self):
+    def __init__(self):
         self.x = 320
         self.y = 240
         self.vx = 0
         self.vy = 0
-        self.img = pygame.image.load(a_auto)
+        self.img = pygame.image.load("auto.png")
+    def die(self):
+        self.y = 0
+        self.x = random.uniform(0, 640)
+        self.vy = random.uniform(1, 2)
     def uuenda(self, dt):
         self.x += self.vx * dt
         self.y += self.vy * dt
     def draw(self, s):
-        pygame.draw.rect(s,[205,50,0],[self.x - self.size, self.y - self.size, self.size * 2, self.size * 2],0)
-    def kokkupõrge(self, b, tükid):
-        if self.x + self.img.get_width() > b.x > self.x - self.img.get_width():
-            if self.y + self.img.get_height() > b.y > self.y - self.img.get_height():
-                tükid.extend([tükk(self.x, self.y) for _ in range(10)])
-                self.die()
+        s.blit(self.img, [self.x - self.img.get_width() / 2, self.y - self.img.get_height() / 2])
 class MängijaK:
-    def __init_(self):
+    def __init__(self):
         self.x = 320
         self.y = 240
         self.vx = 0
         self.vy = 0
-        self.img = pygame.image.load(k_auto)
+        self.img = pygame.image.load("traktor.png")
+    def die(self):
+        self.y = 0
+        self.x = random.uniform(0, 640)
+        self.vy = random.uniform(1, 2)
     def uuenda(self, dt):
         self.x += self.vx * dt
         self.y += self.vy * dt
     def draw(self, s):
-        pygame.draw.rect(s,[205,50,0],[self.x - self.size, self.y - self.size, self.size * 2, self.size * 2],0)
-    def kokkupõrge(self, b, tükid):
-        if self.x + self.img.get_width() > b.x > self.x - self.img.get_width():
-            if self.y + self.img.get_height() > b.y > self.y - self.img.get_height():
-                tükid.extend([tükk(self.x, self.y) for _ in range(10)])
-                self.die()
-                    
+        s.blit(self.img, [self.x - self.img.get_width() / 2, self.y - self.img.get_height() / 2])
 class VaenlaneT:
     def __init__(self):
         self.x = random.uniform(0, 640)
@@ -87,6 +78,8 @@ class VaenlaneT:
         self.y += self.vy * dt
         if(self.y > 480):
             self.die()
+    def draw(self, s):
+        s.blit(self.img, [self.x - self.img.get_width() / 2, self.y - self.img.get_height() / 2])            
 class VaenlaneA:
     def __init__(self):
         self.x = random.uniform(0, 640)
@@ -99,6 +92,8 @@ class VaenlaneA:
         self.y += self.vy * dt
         if(self.y > 480):
             self.die()
+    def draw(self, s):
+        s.blit(self.img, [self.x - self.img.get_width() / 2, self.y - self.img.get_height() / 2])        
 class VaenlaneK:
     def __init__(self):
         self.x = random.uniform(0, 640)
@@ -111,7 +106,8 @@ class VaenlaneK:
         self.y += self.vy * dt
         if(self.y > 480):
             self.die()
-    
+    def draw(self, s):
+        s.blit(self.img, [self.x - self.img.get_width() / 2, self.y - self.img.get_height() / 2])    
 start = pygame_gui.elements.UIButton(pygame.Rect((350, 275), (125, 50)),
                                          'Alusta mängu', 
                                          manager) 
@@ -137,7 +133,8 @@ vaenlasedK = [VaenlaneK() for _ in range(10)]
 Tükid = []
 kast.hide()
 autorids.hide()
-
+level2.hide()
+level3.hide()
 kell = pygame.time.Clock()
 kiirus = 5
 mäng_töötab = True
@@ -195,22 +192,23 @@ while mäng_töötab:
     
 
         manager.process_events(e) #manager töötleb sündmusi
-    trakt.update(dt)
-    auto.update(dt)
-    speed.update(dt)
-    for VaenlaneT in vaenlased:
+    trakt.uuenda(dt)
+    auto.uuenda(dt)
+    speed.uuenda(dt)
+    vaenlasedT = [VaenlaneT() for _ in range(10)]
+    vaenlasedA = [VaenlaneA() for _ in range(10)]
+    vaenlasedK = [VaenlaneK() for _ in range(10)]
+    for VaenlaneT in vaenlasedT:
         VaenlaneT.update(dt)
-    for VaenlaneA in vaenlased:
+    for VaenlaneA in vaenlasedA:
         VaenlaneA.update(dt)
-    for VaenlaneK in vaenlased:
+    for VaenlaneK in vaenlasedK:
         VaenlaneK.update(dt)
-    for Tükk in tükid:
-        Tükk.update(aken)
-    for VaenlaneT in vaenlased:
+    for VaenlaneT in vaenlasedT:
         VaenlaneT.draw(aken)
-    for VaenlaneA in vaenlased:
+    for VaenlaneA in vaenlasedA:
         VaenlaneA.draw(aken)
-    for VaenlaneK in vaenlased:
+    for VaenlaneK in vaenlasedK:
         VaenlaneK.draw(aken)
     aken.fill([255, 255, 255])
     aken.blit(taust, [taustx, tausty])
