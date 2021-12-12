@@ -20,14 +20,15 @@ taustx= 0
 tausty= 0
 class MängijaT:
     def __init_(self):
-        self.x = 320
-        self.y = 240
+        self._x = 320
+        self._y = 240
         self.vx = 0
         self.vy = 0
         self.img = pygame.image.load(t_auto)
+        self.rect = self.image.get_rect()
     def update(self, dt):
-        self.x += self.vx * dt
-        self.y += self.vy * dt
+        self._x += self.vx * dt
+        self._y += self.vy * dt
     def draw(self, s):
         pygame.draw.rect(s,[205,50,0],[self.x - self.size, self.y - self.size, self.size * 2, self.size * 2],0)
     def kokkupõrge(self, b):
