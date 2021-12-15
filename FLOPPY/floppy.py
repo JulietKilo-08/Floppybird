@@ -18,7 +18,7 @@ vaenA = pygame.image.load("vaenA.png")
 vaenK = pygame.image.load("VaenK.jpg")
 taustx= 0
 tausty= 0
-class MängijaT:
+class MängijaT(object):
     def __init__(self):
         self.x = 80
         self.y = 60
@@ -161,29 +161,29 @@ while mäng_töötab:
                     start.hide()
                     version.hide()
                     autorid.hide()
-                    MängijaT.draw(aken)
-                    pygame.image_load("rohi.png")
+                    trakt.draw(aken)
+                    pygame.image.load("rohi.png")
                     naita = True
                     if naita:
-                        aken.blit(VastaneT(), VastaneT().Rect)
+                        aken.blit(VaenlaneT(), VaenlaneT().Rect)
                     if level2:
                         naita = False
                 if e.ui_element == level2: 
                     level2.hide()
                     MängijaA.draw(aken)
-                    pygame.image_load("maantee.png")
+                    pygame.image.load("maantee.png")
                     level2 = True
                     if level2:
-                        screen.blit(VastaneA(), VastaneA().Rect)
+                        screen.blit(VaenlaneA(), VaenlaneA().Rect)
                     if level3:
                         level2 = False
                 if e.ui_element == level3: 
                     level3.hide()
                     MängijaK.draw(aken)
-                    pygame.image_load("rada.png")
+                    pygame.image.load("rada.png")
                     level3 = True
                     if level3 == True:
-                        aken.blit(VastanK(), VastaneK().Rect)
+                        aken.blit(VastanK(), VaenlaneK().Rect)
                 if e.ui_element == autorid: 
                     kast.show()
                     autorids.show()
