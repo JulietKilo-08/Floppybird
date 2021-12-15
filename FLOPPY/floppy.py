@@ -20,8 +20,8 @@ taustx= 0
 tausty= 0
 class MängijaT:
     def __init__(self):
-        self.x = 320
-        self.y = 240
+        self.x = 80
+        self.y = 60
         self.vx = 0
         self.vy = 0
         self.img = pygame.image.load("traktor.png")
@@ -32,8 +32,8 @@ class MängijaT:
         s.blit(self.img, [self.x - self.img.get_width() / 2, self.y - self.img.get_height() / 2])
 class MängijaA:
     def __init__(self):
-        self.x = 320
-        self.y = 240
+        self.x = 80
+        self.y = 60
         self.vx = 0
         self.vy = 0
         self.img = pygame.image.load("auto.png")
@@ -44,8 +44,8 @@ class MängijaA:
         s.blit(self.img, [self.x - self.img.get_width() / 2, self.y - self.img.get_height() / 2])
 class MängijaK:
     def __init__(self):
-        self.x = 320
-        self.y = 240
+        self.x = 80
+        self.y = 60
         self.vx = 0
         self.vy = 0
         self.img = pygame.image.load("traktor.png")
@@ -56,44 +56,56 @@ class MängijaK:
         s.blit(self.img, [self.x - self.img.get_width() / 2, self.y - self.img.get_height() / 2])
 class VaenlaneT:
     def __init__(self):
-        self.x = random.uniform(0, 640)
-        self.y = 0
-        self.vx = 0
-        self.vy = random.uniform(1, 2)
+        self.x = 0
+        self.y = random.uniform(0, 640)
+        self.vx = random.uniform(1, 2)
+        self.vy = 0
         self.img = pygame.image.load("hein.png")
     def update(self, dt):
         self.x += self.vx * dt
         self.y += self.vy * dt
-        if(self.y > 480):
+        if(self.x > 640):
             self.die()
+    def die(self):
+        self.y = random.uniform(0, 480)
+        self.x = 0
+        self.vy = random.uniform(1, 2)
     def draw(self, s):
         s.blit(self.img, [self.x - self.img.get_width() / 2, self.y - self.img.get_height() / 2])            
 class VaenlaneA:
     def __init__(self):
-        self.x = random.uniform(0, 640)
-        self.y = 0
-        self.vx = 0
-        self.vy = random.uniform(1, 2)
+        self.x = 0
+        self.y = random.uniform(0, 640)
+        self.vx = random.uniform(1, 2)
+        self.vy = 0
         self.img = pygame.image.load("vaenA.png")
     def update(self, dt):
         self.x += self.vx * dt
         self.y += self.vy * dt
-        if(self.y > 480):
+        if(self.y > 640):
             self.die()
+    def die(self):
+        self.y = random.uniform(0, 480)
+        self.x = 0
+        self.vy = random.uniform(1, 2)
     def draw(self, s):
         s.blit(self.img, [self.x - self.img.get_width() / 2, self.y - self.img.get_height() / 2])        
 class VaenlaneK:
     def __init__(self):
-        self.x = random.uniform(0, 640)
-        self.y = 0
-        self.vx = 0
-        self.vy = random.uniform(1, 2)
+        self.x = 0
+        self.y = random.uniform(0, 640)
+        self.vx = random.uniform(1, 2)
+        self.vy = 0
         self.img = pygame.image.load("VaenK.jpg")
     def update(self, dt):
         self.x += self.vx * dt
         self.y += self.vy * dt
-        if(self.y > 480):
+        if(self.y > 640):
             self.die()
+    def die(self):
+        self.y = random.uniform(0, 480)
+        self.x = 0
+        self.vy = random.uniform(1, 2)
     def draw(self, s):
         s.blit(self.img, [self.x - self.img.get_width() / 2, self.y - self.img.get_height() / 2])    
 start = pygame_gui.elements.UIButton(pygame.Rect((350, 275), (125, 50)),
@@ -102,7 +114,7 @@ start = pygame_gui.elements.UIButton(pygame.Rect((350, 275), (125, 50)),
 autorid = pygame_gui.elements.UIButton(pygame.Rect((10, 10), (75, 50)),
                                          'Autorid', 
                                          manager)
-autorids = pygame_gui.elements.UIButton(pygame.Rect((310, 140), (100, 50)),
+autorids = pygame_gui.elements.UIButton(pygame.Rect((270, 180), (100, 50)),
                                          'Sulge', 
                                          manager)
 level2 = pygame_gui.elements.UIButton(pygame.Rect((350, 275), (125, 50)),
@@ -111,7 +123,8 @@ level2 = pygame_gui.elements.UIButton(pygame.Rect((350, 275), (125, 50)),
 level3 = pygame_gui.elements.UIButton(pygame.Rect((350, 275), (125, 50)),
                                          'Järgmine Tase:Võidusõidu rada', 
                                          manager) 
-kast = pygame_gui.elements.UITextBox("Graafikaga seonduvad ülesanded(mängija ikoon, takistused jms)- Andris, Harald <br> Helidega seonduvad ülesanded(mängu alguse intro, taustamuusika jms)- Mikk <br> Koodiga seonduvad ülesanded(base code, klassid jms)- Kevin, Joosep", pygame.Rect((120,140), (200, 180)), manager)
+kast = pygame_gui.elements.UITextBox("Graafikaga seonduvad ülesanded(mängija ikoon, takistused jms)- Andris, Harald <br> Helidega seonduvad ülesanded(mängu alguse intro, taustamuusika jms)- Mikk <br> Koodiga seonduvad ülesanded(base code, klassid jms)- Kevin, Joosep", pygame.Rect((75,50), (200, 180)), manager)
+version = pygame_gui.elements.UITextBox("VER 0.1<br>Muudetud:<br>-Vastased nüüd lendavad horizontaalselt... loodetavasti <br>ma ei saa proovida <br>seda veel, nupp ei tööta", pygame.Rect((600,10), (200, 180)), manager)
 trakt = MängijaT()
 auto = MängijaA()
 speed = MängijaK()
@@ -146,12 +159,13 @@ while mäng_töötab:
             if e.user_type == pygame_gui.UI_BUTTON_PRESSED: 
                 if e.ui_element == start: 
                     start.hide()
+                    version.hide()
                     autorid.hide()
                     MängijaT.draw(aken)
                     pygame.image_load("rohi.png")
                     naita = True
                     if naita:
-                        screen.blit(VastaneT(), VastaneT().Rect)
+                        aken.blit(VastaneT(), VastaneT().Rect)
                     if level2:
                         naita = False
                 if e.ui_element == level2: 
@@ -169,7 +183,7 @@ while mäng_töötab:
                     pygame.image_load("rada.png")
                     level3 = True
                     if level3 == True:
-                        screen.blit(VastanK(), VastaneK().Rect)
+                        aken.blit(VastanK(), VastaneK().Rect)
                 if e.ui_element == autorid: 
                     kast.show()
                     autorids.show()
@@ -181,9 +195,6 @@ while mäng_töötab:
     trakt.uuenda(dt)
     auto.uuenda(dt)
     speed.uuenda(dt)
-    vaenlasedT = [VaenlaneT() for _ in range(10)]
-    vaenlasedA = [VaenlaneA() for _ in range(10)]
-    vaenlasedK = [VaenlaneK() for _ in range(10)]
     for VaenlaneT in vaenlasedT:
         VaenlaneT.update(dt)
     for VaenlaneA in vaenlasedA:
